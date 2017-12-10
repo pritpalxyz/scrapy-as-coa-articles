@@ -21,9 +21,7 @@ class AsCoaSpider(scrapy.Spider):
 
     # METHOD FOR CONVERTING LIST OF STRING TO SIMPLE STRING AND FILTRING
     def filterStr(self, listOfStr):
-        dummy_string = ""
-        for string_to_filter in listOfStr:
-            dummy_string = unicode("{0} {1}".format(dummy_string,string_to_filter))
+        dummy_string = " ".join(unicode(content) for content in data_list)
         return self.parseText(dummy_string)
 
     # METHOD FOR DECLARING ALL XPATH VARIABLES THAT
@@ -56,7 +54,7 @@ class AsCoaSpider(scrapy.Spider):
     # AND STORING PASSING INTO ITEMS CLASS
     def ParseEventDeep(self, response):
         item = AsCoaCrawlerItem()
-        
+
 
         item['eventImage'] = response.xpath(self.ARTICLE_IMAGE_XPATH).extract()
         item['organization'] = ''
